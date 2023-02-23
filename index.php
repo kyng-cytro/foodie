@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,10 +17,23 @@
 
 <?php
 $items = [
-  ['img' => 'images/foods/food_image_1.jpg', 'name' => 'King Burger', 'price' => '12200', 'discount' => '15%'],
-  ['img' => 'images/foods/food_image_2.jpg', 'name' => '5 drum sticks', 'price' => '5920', 'discount' => '25%'],
-  ['img' => 'images/foods/food_image_3.jpg', 'name' => 'Pasta', 'price' => '18525', 'discount' => '20%']
+  ['id' => 1, 'img' => 'images/foods/food_image_1.jpg', 'name' => 'King Burger', 'price' => '12200', 'discount' => '15%'],
+  ['id' => 2, 'img' => 'images/foods/food_image_2.jpg', 'name' => '5 drum sticks', 'price' => '5920', 'discount' => '25%'],
+  ['id' => 3, 'img' => 'images/foods/food_image_3.jpg', 'name' => 'Pasta', 'price' => '18525', 'discount' => '20%']
 ]
+?>
+
+<?php
+function addToCart($id)
+{
+  $_SESSION['cart'] = $id;
+  header('location: ' . $_SERVER['PHP_SELF']);
+}
+
+
+if (isset($_GET['addtocart'])) {
+  addToCart($_GET['addtocart']);
+}
 ?>
 
 <body class="bg-slate-800">
@@ -89,7 +103,7 @@ $items = [
             <div class="max-w-lg bg-slate-900 px-6 pt-6 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
               <!-- Image & Discount -->
               <div class="relative">
-                <img class="w-full rounded-xl aspect-auto" src="<?php echo $item['img'] ?>" alt="<?php echo $item['name'] ?>" />
+                <img class="w-full rounded-xl aspect-video" src="<?php echo $item['img'] ?>" alt="<?php echo $item['name'] ?>" />
                 <p class="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg"><?php echo $item['discount'] ?></p>
               </div>
               <!-- Name -->
@@ -110,7 +124,7 @@ $items = [
 
               <!-- Button -->
               <div class="my-4">
-                <button class="mt-4 text-sm md:text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg hover:bg-indigo-800 focus:bg-indigo-800 duration-500">Add to cart</button>
+                <a href="<?php echo $_SERVER['PHP_SELF'] . '?addtocart=' . $item['id'] ?>" class="block text-center mt-4 text-sm md:text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg hover:bg-indigo-800 focus:bg-indigo-800 duration-500">Add to cart</a>
               </div>
             </div>
           <?php endforeach; ?>
@@ -127,7 +141,7 @@ $items = [
             <div class="max-w-lg bg-slate-900 px-6 pt-6 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
               <!-- Image & Discount -->
               <div class="relative">
-                <img class="w-full rounded-xl" src="<?php echo $item['img'] ?>" alt="<?php echo $item['name'] ?>" />
+                <img class="w-full rounded-xl aspect-video" src="<?php echo $item['img'] ?>" alt="<?php echo $item['name'] ?>" />
                 <p class="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg"><?php echo $item['discount'] ?></p>
               </div>
               <!-- Name -->
@@ -165,7 +179,7 @@ $items = [
             <div class="max-w-lg bg-slate-900 px-6 pt-6 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
               <!-- Image & Discount -->
               <div class="relative">
-                <img class="w-full rounded-xl" src="<?php echo $item['img'] ?>" alt="<?php echo $item['name'] ?>" />
+                <img class="w-full rounded-xl aspect-video" src="<?php echo $item['img'] ?>" alt="<?php echo $item['name'] ?>" />
                 <p class="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg"><?php echo $item['discount'] ?></p>
               </div>
               <!-- Name -->
