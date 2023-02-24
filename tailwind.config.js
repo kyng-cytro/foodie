@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "*.{html,php,js}",
     "partials/*.{html,php,js}",
+    "partials/*/*.{html,php,js}",
     "admin/*.{html,php,js}",
   ],
   theme: {

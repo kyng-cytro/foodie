@@ -1,5 +1,4 @@
-<?php include("constants/database.php") ?>
-
+<?php include("../config/constants.php") ?>
 <!-- Navbar -->
 <nav class="border-gray-200 px-2 sm:px-4 py-2.5 rounded bg-gray-900">
   <div class="md:max-w-[80%] container flex flex-wrap items-center justify-between mx-auto">
