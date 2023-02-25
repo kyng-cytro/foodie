@@ -2,16 +2,21 @@
 
 include('../config/constants.php');
 
-$id = $_GET['id'];
+if (isset($_GET['id'])) {
 
-$sql = "DELETE FROM `admin` WHERE id=$id";
+    $id = $_GET['id'];
 
-$res = $conn->real_query($sql);
+    $sql = "DELETE FROM `admin` WHERE id=$id";
 
-if ($res) {
-    $_SESSION['delete'] = '<span class="text-sm font-semibold text-green-500">Admin Deleted Successfully</span>';
+    $res = $conn->real_query($sql);
+
+    if ($res) {
+        $_SESSION['delete'] = '<span class="text-sm font-semibold text-green-500">Admin Deleted Successfully</span>';
+    } else {
+        $_SESSION['delete'] = '<span class="text-sm font-semibold text-red-500">An Error Occurred while deleting Admin</span>';
+    }
+
+    header('location:' . SITEURL . 'admin/manage-admins.php');
 } else {
-    $_SESSION['delete'] = '<span class="text-sm font-semibold text-red-500">An Error Occurred while deleting Admin</span>';
+    header('location:' . SITEURL . 'admin/manage-admins.php');
 }
-
-header('location:' . SITEURL . 'admin/manage-admins.php');

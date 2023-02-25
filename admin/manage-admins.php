@@ -26,7 +26,6 @@
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
         <div class="space-y-4">
             <h2 class="font-bold text-2xl uppercase">Manage Admins</h2>
-
             <div>
                 <?php
                 if (isset($_SESSION['add'])) {
