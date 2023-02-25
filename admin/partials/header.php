@@ -1,6 +1,6 @@
 <?php require_once("../config/constants.php") ?>
 <!--TODO: remember to enable auth -->
-<?php #include('login-check.php') 
+<?php #include('login-check.php')
 ?>
 <nav class=" border-gray-200 px-2 sm:px-4 py-2.5  bg-gray-900 font-montserrat">
     <div class="container flex flex-wrap items-center justify-between mx-auto">

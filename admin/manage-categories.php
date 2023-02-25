@@ -18,15 +18,14 @@
     <?php include('partials/header.php') ?>
 
     <?php
-    $sql = 'SELECT * FROM `category`';
-
-    $res = $conn->query($sql);
+    $categories = $conn->query('SELECT * FROM `category`');
     ?>
 
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
         <div class="space-y-4">
             <h2 class="font-bold text-2xl uppercase">Manage Categories</h2>
+
             <div>
                 <?php
                 if (isset($_SESSION['add'])) {
@@ -53,7 +52,8 @@
                 }
                 ?>
             </div>
-            <a href="add-category.php" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Add Category</a>
+
+            <div><a href="add-category.php" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Add Category</a></div>
 
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left text-gray-400">
@@ -80,7 +80,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($res as $key => $category) : ?>
+                        <?php foreach ($categories as $key => $category) : ?>
                             <tr class=" border-b bg-gray-900 border-gray-700">
                                 <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
                                     <?php echo $key + 1 ?>

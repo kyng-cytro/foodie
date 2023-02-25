@@ -51,14 +51,14 @@
                     if ($new_password == $confirm_password) {
 
                         //TODO: Fix updated at timestamp
-                        $sql2 = "UPDATE `admin` SET 
+                        $sql = "UPDATE `admin` SET 
                         password='$new_password' 
                         WHERE id=$id
                         ";
 
-                        $res2 = $conn->query($sql2);
+                        $res = $conn->query($sql);
 
-                        if ($res2) {
+                        if ($res) {
                             $_SESSION['change-pwd'] = '<span class="text-sm font-semibold text-green-500">Password Changed Successfully. </span>';
                             header('location:' . SITEURL . 'admin/manage-admins.php');
                         } else {

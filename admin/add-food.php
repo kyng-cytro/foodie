@@ -10,20 +10,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/output.css" />
-    <title>Foodie | Add Category</title>
+    <title>Foodie | Add Food</title>
 </head>
 
 <body class="min-h-screen flex flex-col font-montserrat">
     <!--- Nav Bar -->
     <?php include('partials/header.php') ?>
-
+    <?php
+    $categories = $conn->query('SELECT * FROM category WHERE active = 1');
+    ?>
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
         <div class="space-y-6">
-            <h2 class="font-bold text-2xl uppercase">Add Category</h2>
+            <h2 class="font-bold text-2xl uppercase">Add Food</h2>
             <?php
+
             if (isset($_POST['submit'])) {
                 $title = $_POST['title'];
+                $price = $_POST['price'];
+                $rating = $_POST['rating'];
+                $category_id = $_POST['category'];
                 $featured = isset($_POST['featured']) ? $_POST['featured'] == "on" : 0;
                 $active = isset($_POST['active']) ? $_POST['active'] == "on" : 0;
 
@@ -31,15 +37,13 @@
                     $image_name = $_FILES['image']['name'];
                     if ($image_name != "") {
                         $ext = end(explode('.', $image_name));
-                        $image_name = "Food_Category_" . rand(000, 999) . '.' . $ext;
-                        $source_path = $_FILES['image']['tmp_name'];
-
-                        //NOTE: Had to make this directory writable
-                        $destination_path = "../images/category/" . $image_name;
-                        $upload = move_uploaded_file($source_path, $destination_path);
+                        $image_name = "Food_Name_" . rand(0000, 9999) . "." . $ext;
+                        $src = $_FILES['image']['tmp_name'];
+                        $dst = "../images/food/" . $image_name;
+                        $upload = move_uploaded_file($src, $dst);
                         if ($upload == false) {
                             $_SESSION['upload'] =  '<span class="text-sm font-semibold text-red-500">Failed to Upload Image.</span>';
-                            header('location:' . SITEURL . 'admin/manage-categories.php');
+                            header('location:' . SITEURL . 'admin/manage-foods.php');
                             die();
                         }
                     }
@@ -47,28 +51,47 @@
                     $image_name = "";
                 }
 
-                $sql = "INSERT INTO category SET 
-                    title='$title',
-                    image_name='$image_name',
-                    featured='$featured',
-                    active='$active'
+                $sql = "INSERT INTO food SET 
+                    title = '$title',
+                    price = $price,
+                    rating = '$rating',
+                    image_name = '$image_name',
+                    category_id = $category_id,
+                    featured = '$featured',
+                    active = '$active'
                 ";
 
                 $res = $conn->real_query($sql);
 
                 if ($res) {
-                    $_SESSION['add'] = '<span class="text-sm font-semibold text-green-500">Category Added Successfully.</span>';
+                    $_SESSION['add'] = '<span class="text-sm font-semibold text-green-500">Food Added Successfully.</span>';
                 } else {
-                    $_SESSION['add'] = '<span class="text-sm font-semibold text-red-500">Failed to Add Category.</span>';
+                    $_SESSION['add'] = '<span class="text-sm font-semibold text-red-500">Failed to Add Food.</span>';
                 }
 
-                header('location:' . SITEURL . 'admin/manage-categories.php');
+                header('location:' . SITEURL . 'admin/manage-foods.php');
             }
             ?>
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" class="max-w-3xl">
                 <div class="mb-6">
                     <label for="title" class="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
-                    <input name="title" type="text" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Healthy" required>
+                    <input name="title" type="text" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Bread Sticks" required>
+                </div>
+                <div class="mb-6">
+                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 ">Price</label>
+                    <input name="price" type="number" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="19000" required>
+                </div>
+                <div class="mb-6">
+                    <label for="rating" class="block mb-2 text-sm font-medium text-gray-900 ">Rating</label>
+                    <input name="rating" type="number" id="rating" min="1" max="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="4" required>
+                </div>
+                <div class="mb-6">
+                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 ">Category</label>
+                    <select name="category" type="number" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        <?php foreach ($categories as $category) : ?>
+                            <option value="<?php echo $category['id'] ?>"><?php echo $category['title'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="mb-6">
                     <label for="image" class="block mb-2 text-sm font-medium text-gray-900 ">Select Image</label>

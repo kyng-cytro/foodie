@@ -10,45 +10,51 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/output.css" />
-    <title>Foodie | Edit Category</title>
+    <title>Foodie | Edit Food</title>
 </head>
 
 <body class="min-h-screen flex flex-col font-montserrat">
     <!--- Nav Bar -->
     <?php include('partials/header.php') ?>
-
+    <?php
+    $categories = $conn->query("SELECT * FROM category");
+    ?>
     <?php
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
 
-        $sql = "SELECT * FROM category WHERE id= $id";
+        $sql = "SELECT * FROM food WHERE id= $id";
 
         $res = $conn->query($sql);
 
-        $category = $res->fetch_assoc();
+        $food = $res->fetch_assoc();
 
-        if (!$category['id']) {
-            $_SESSION['no-category-found'] = '<span class="text-sm font-semibold text-red-500">Category not Found.</span>';
-            header('location:' . SITEURL . 'admin/manage-categories.php');
+        if (!$food['id']) {
+            $_SESSION['no-food-found'] = '<span class="text-sm font-semibold text-red-500">Food not Found.</span>';
+            header('location:' . SITEURL . 'admin/manage-foods.php');
         }
 
-        $title = $category['title'];
-        $current_image = $category['image_name'];
-        $featured = $category['featured'];
-        $active = $category['active'];
+        $title = $food['title'];
+        $price = $food['price'];
+        $rating = $food['rating'];
+        $current_image = $food['image_name'];
+        $category_id = $food['category_id'];
+        $featured = $food['featured'];
+        $active = $food['active'];
     } else {
-        header('location:' . SITEURL . 'admin/manage-categories.php');
+        header('location:' . SITEURL . 'admin/manage-foods.php');
     }
     ?>
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
         <div class="space-y-6">
-            <h2 class="font-bold text-2xl uppercase">Edit Category</h2>
+            <h2 class="font-bold text-2xl uppercase">Edit Food</h2>
             <?php
             if (isset($_POST['submit'])) {
-                $id = $_POST['id'];
                 $title = $_POST['title'];
-                $current_image = $_POST['current_image'];
+                $price = $_POST['price'];
+                $rating = $_POST['rating'];
+                $category_id = $_POST['category'];
                 $featured = isset($_POST['featured']) ? $_POST['featured'] == "on" : 0;
                 $active = isset($_POST['active']) ? $_POST['active'] == "on" : 0;
 
@@ -57,26 +63,26 @@
 
                     if ($image_name != "") {
                         $ext = end(explode('.', $image_name));
-                        $image_name = "Food_Category_" . rand(000, 999) . '.' . $ext;
+                        $image_name = "Food_Name_" . rand(000, 999) . '.' . $ext;
                         $source_path = $_FILES['image']['tmp_name'];
 
                         //NOTE: Had to make this directory writable
-                        $destination_path = "../images/category/" . $image_name;
+                        $destination_path = "../images/food/" . $image_name;
                         $upload = move_uploaded_file($source_path, $destination_path);
                         if ($upload == false) {
                             $_SESSION['upload'] =  '<span class="text-sm font-semibold text-red-500">Failed to Upload Image.</span>';
-                            header('location:' . SITEURL . 'admin/manage-categories.php');
+                            header('location:' . SITEURL . 'admin/manage-foods.php');
                             die();
                         }
 
                         // Deleting Old Image
                         if ($current_image != "") {
-                            $remove_path = "../images/category/" . $current_image;
+                            $remove_path = "../images/food/" . $current_image;
 
                             $remove = unlink($remove_path);
                             if ($remove == false) {
                                 $_SESSION['failed-remove'] =  '<span class="text-sm font-semibold text-red-500">Failed to Remove Current Image.</span>';
-                                header('location:' . SITEURL . 'admin/manage-categories.php');
+                                header('location:' . SITEURL . 'admin/manage-foods.php');
                                 die();
                             }
                         }
@@ -86,39 +92,59 @@
                 } else {
                     $image_name = $current_image;
                 }
-
                 //TODO: fix updated at timestamp
-                $sql = "UPDATE category SET 
-                                    title = '$title',
-                                    image_name = '$image_name',
-                                    featured = '$featured',
-                                    active = '$active' 
-                                    WHERE id=$id
-                                ";
+                $sql = "UPDATE food SET 
+                        title = '$title',
+                        image_name = '$image_name',
+                        price = '$price',
+                        rating = '$rating',
+                        category_id = '$category_id',
+                        featured = '$featured',
+                        active = '$active' 
+                        WHERE id=$id
+                    ";
 
                 $res = $conn->real_query($sql);
 
                 if ($res) {
-                    $_SESSION['add'] = '<span class="text-sm font-semibold text-green-500">Category Updated Successfully.</span>';
+                    $_SESSION['add'] = '<span class="text-sm font-semibold text-green-500">Food Updated Successfully.</span>';
                 } else {
-                    $_SESSION['add'] = '<span class="text-sm font-semibold text-red-500">An Error Occurred While Updating Category</span>';
+                    $_SESSION['add'] = '<span class="text-sm font-semibold text-red-500">An Error Occurred While Updating Food</span>';
                 }
 
-                header('location:' . SITEURL . 'admin/manage-categories.php');
+                header('location:' . SITEURL . 'admin/manage-foods.php');
             }
             ?>
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" class="max-w-3xl">
                 <div class="mb-6">
                     <label for="title" class="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
-                    <input name="title" type="text" id="title" value="<?php echo $title; ?>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Healthy" required>
+                    <input name="title" type="text" value="<?php echo $title; ?>" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Bread Sticks" required>
+                </div>
+                <div class="mb-6">
+                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 ">Price</label>
+                    <input name="price" type="number" value="<?php echo $price; ?>" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="19000" required>
+                </div>
+                <div class="mb-6">
+                    <label for="rating" class="block mb-2 text-sm font-medium text-gray-900 ">Rating</label>
+                    <input name="rating" type="number" value="<?php echo $rating; ?>" min="1" max="5" id="rating" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="4" required>
                 </div>
                 <div class="mb-6">
                     <label for="image" class="block mb-2 text-sm font-medium text-gray-900 ">Current Image</label>
                     <?php if ($current_image != "") : ?>
-                        <img class="h-auto w-40 rounded-lg" src="<?php echo '../images/category/' . $current_image ?>" />
+                        <img class="h-auto w-40 rounded-lg" src="<?php echo '../images/food/' . $current_image ?>" />
                     <?php else : ?>
                         <p class=" text-sm font-light">No current image to show</p>
                     <?php endif ?>
+                </div>
+                <div class="mb-6">
+                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 ">Category</label>
+                    <select name="category" type="number" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        <?php foreach ($categories as $category) : ?>
+                            <option <?php echo ($category['id'] == $category_id) ? "selected" : null ?> value="<?php echo $category['id'] ?>">
+                                <?php echo $category['title'] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="mb-6">
                     <label for="image" class="block mb-2 text-sm font-medium text-gray-900 ">New Image</label>

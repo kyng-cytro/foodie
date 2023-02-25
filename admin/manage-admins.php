@@ -18,9 +18,7 @@
     <?php include('partials/header.php') ?>
 
     <?php
-    $sql = 'SELECT * FROM `admin`';
-
-    $res = $conn->query($sql);
+    $admins = $conn->query('SELECT * FROM `admin`');
     ?>
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
@@ -88,7 +86,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($res as $key => $admin) : ?>
+                        <?php foreach ($admins as $key => $admin) : ?>
                             <tr class=" border-b bg-gray-900 border-gray-700">
                                 <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
                                     <?php echo $key + 1 ?>
