@@ -1,5 +1,5 @@
 <footer>
-    <div class="bg-gray-700">
+    <div class="bg-gray-700 font-montserrat">
         <div class="px-4 py-6 md:flex md:items-center md:justify-between md:max-w-[80%] mx-auto">
             <span class="text-sm text-gray-300 sm:text-center">© 2023 <a href="https://flowbite.com/">Foodie™</a>. All Rights
                 Reserved.

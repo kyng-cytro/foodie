@@ -13,7 +13,7 @@
     <title>Foodie | Manage Orders</title>
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col font-montserrat">
     <!--- Nav Bar -->
     <?php include('partials/header.php') ?>
 

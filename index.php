@@ -36,7 +36,7 @@ if (isset($_GET['addtocart'])) {
 }
 ?>
 
-<body class="bg-slate-800">
+<body class="bg-slate-800 font-montserrat">
   <div class="min-h-screen font-montserrat flex flex-col">
     <?php include('partials/header.php') ?>
     <!-- Main Content -->

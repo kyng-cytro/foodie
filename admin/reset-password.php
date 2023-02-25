@@ -10,7 +10,7 @@
     <title>Foodie | Reset Password</title>
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col font-montserrat">
     <!--- Nav Bar -->
     <?php include('partials/header.php') ?>
 
@@ -50,6 +50,7 @@
 
                     if ($new_password == $confirm_password) {
 
+                        //TODO: Fix updated at timestamp
                         $sql2 = "UPDATE `admin` SET 
                         password='$new_password' 
                         WHERE id=$id

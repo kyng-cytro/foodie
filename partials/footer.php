@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="bg-gray-900">
+<footer class="bg-gray-900 font-montserrat">
   <div class="grid grid-cols-2 gap-8  px-6 py-8 md:grid-cols-4 md:justify-items-center">
     <div>
       <h2 class="mb-6 text-sm font-semibold uppercase text-gray-400">

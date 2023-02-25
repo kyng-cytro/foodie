@@ -12,7 +12,7 @@
     <title>Foodie | Reset Password</title>
 </head>
 
-<body class="min-h-screen flex flex-col bg-gray-200">
+<body class="min-h-screen flex flex-col bg-gray-200 font-montserrat">
     <div class="h-full flex flex-col items-center justify-center">
         <div class="w-full max-w-2xl space-y-3">
             <h2 class="font-bold text-2xl uppercase text-left w-full md:max-w-2xl px-2 md:px-0">Sign In</h2>

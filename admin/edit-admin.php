@@ -10,7 +10,7 @@
     <title>Foodie | Edit Admin</title>
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col font-montserrat">
     <!--- Nav Bar -->
     <?php include('partials/header.php') ?>
 
@@ -42,6 +42,7 @@
                 $username = $_POST['username'];
 
 
+                //TODO: Fix updated at timestamp
                 $sql = "UPDATE admin SET
                 full_name = '$full_name',
                 username = '$username' 

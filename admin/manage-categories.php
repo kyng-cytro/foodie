@@ -13,16 +13,35 @@
     <title>Foodie | Manage Categories</title>
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col font-montserrat">
     <!--- Nav Bar -->
     <?php include('partials/header.php') ?>
+
+    <?php
+    $sql = 'SELECT * FROM `category`';
+
+    $res = $conn->query($sql);
+    ?>
 
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
         <div class="space-y-4">
             <h2 class="font-bold text-2xl uppercase">Manage Categories</h2>
-
-            <a href="#" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Add Category</a>
+            <div>
+                <?php
+                if (isset($_SESSION['add'])) {
+                    echo $_SESSION['add'];
+                    unset($_SESSION['add']);
+                }
+                ?>
+                <?php
+                if (isset($_SESSION['upload'])) {
+                    echo $_SESSION['upload'];
+                    unset($_SESSION['upload']);
+                }
+                ?>
+            </div>
+            <a href="add-category.php" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Add Category</a>
 
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left text-gray-400">
@@ -32,10 +51,16 @@
                                 S/N
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Full Name
+                                Title
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Username
+                                Image
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Featured
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Active
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Action
@@ -43,22 +68,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class=" border-b bg-gray-900 border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
-                                1
-                            </th>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                John Dibashi
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                Cytro
-                            </td>
-
-                            <td class="flex flex-col md:flex-row px-6 py-4 gap-4 items-center justify-start">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
-                            </td>
-                        </tr>
+                        <?php foreach ($res as $key => $category) : ?>
+                            <tr class=" border-b bg-gray-900 border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
+                                    <?php echo $key + 1 ?>
+                                </th>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <?php echo $category['title'] ?>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <?php if ($category['image_name'] != "") : ?>
+                                        <img class="h-16 w-16" src="<?php echo '../images/category/' . $category['image_name'] ?>" />
+                                    <?php endif ?>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <?php echo $category['featured'] == 1 ? 'True' : 'False' ?>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <?php echo $category['active'] == 1 ? 'True' : 'False' ?>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class=" flex flex-col md:flex-row gap-4 items-center justify-start">
+                                        <a href="<?php echo SITEURL . 'admin/edit-category.php?id=' . $category['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <a href="<?php echo SITEURL . 'admin/delete-category.php?id=' . $category['id'] ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
