@@ -86,12 +86,12 @@
 
                     //TODO: fix updated at timestamp
                     $sql2 = "UPDATE category SET 
-                        title = '$title',
-                        image_name = '$image_name',
-                        featured = '$featured',
-                        active = '$active' 
-                        WHERE id=$id
-                    ";
+                                title = '$title',
+                                image_name = '$image_name',
+                                featured = '$featured',
+                                active = '$active' 
+                                WHERE id=$id
+                            ";
 
                     $res2 = $conn->real_query($sql2);
 

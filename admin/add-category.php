@@ -22,7 +22,6 @@
         <div class="space-y-6">
             <h2 class="font-bold text-2xl uppercase">Add Category</h2>
             <?php
-
             if (isset($_POST['submit'])) {
                 $title = $_POST['title'];
                 $featured = isset($_POST['featured']) ? $_POST['featured'] == "on" : 0;
@@ -65,7 +64,6 @@
 
                 header('location:' . SITEURL . 'admin/manage-categories.php');
             }
-
             ?>
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" class="max-w-3xl">
                 <div class="mb-6">
@@ -74,7 +72,7 @@
                 </div>
                 <div class="mb-6">
                     <label for="image" class="block mb-2 text-sm font-medium text-gray-900 ">Select Image</label>
-                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50  focus:outline-none" name="image" id="image" type="file" required>
+                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50  focus:outline-none" name="image" id="image" type="file">
                 </div>
                 <div class="mb-6">
                     <label class="relative inline-flex items-center mb-4 cursor-pointer">
