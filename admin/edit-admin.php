@@ -15,21 +15,25 @@
     <?php include('partials/header.php') ?>
 
     <?php
-    $id = $_GET['id'];
 
-    $sql = "SELECT * FROM admin WHERE id= $id";
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
 
-    $res = $conn->query($sql);
+        $sql = "SELECT * FROM admin WHERE id= $id";
 
-    if (!$res) {
+        $res = $conn->query($sql);
+
+        $user = $res->fetch_assoc();
+
+        if (!$user['id']) {
+            header('location:' . SITEURL . 'admin/manage-admins.php');
+        }
+
+        $full_name = $user['full_name'];
+        $username = $user['username'];
+    } else {
         header('location:' . SITEURL . 'admin/manage-admins.php');
     }
-
-    $user = $res->fetch_assoc();
-
-    $full_name = $user['full_name'];
-    $username = $user['username'];
-
     ?>
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
         <div class="space-y-6">
