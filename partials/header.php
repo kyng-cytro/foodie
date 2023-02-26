@@ -1,4 +1,4 @@
-<?php include("../config/constants.php") ?>
+<?php require_once("config/constants.php") ?>
 <!-- Navbar -->
 <nav class="border-gray-200 px-2 sm:px-4 py-2.5 rounded bg-gray-900 font-montserrat">
   <div class="md:max-w-[80%] container flex flex-wrap items-center justify-between mx-auto">
@@ -49,13 +49,13 @@
       </div>
       <ul class="flex flex-col p-4 mt-4 space-y-2 md:space-y-0 border rounded-lg md:flex-row md:space-x-10 lg:space-x-14 md:mt-0 md:text-sm md:font-medium md:border-0 bg-gray-900 md:bg-gray-900 border-gray-700">
         <li>
-          <a href="#" class="block py-2 pl-3 text-base pr-6 font-semibold bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 text-white" aria-current="page">Home</a>
+          <a href="index.php" class="<?php echo ('block mb-1 md:mb-0 py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 ') . (str_contains($_SERVER['PHP_SELF'], 'index.php') ? ('text-white bg-blue-700 md:text-blue-700') : ('text-gray-400 md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent ')) ?>">Home</a>
         </li>
         <li>
-          <a href="#" class="block py-2 pl-3 text-base pr-4 rounded md:p-0 md:hover:text-white text-gray-400 hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700">Store</a>
+          <a href="menu.php" class="<?php echo ('block mb-1 md:mb-0 py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 ') . (str_contains($_SERVER['PHP_SELF'], 'menu.php') ? ('text-white bg-blue-700 md:text-blue-700') : ('text-gray-400 md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent ')) ?>">Menu</a>
         </li>
         <li>
-          <a href="#" class="block py-2 pl-3 text-base pr-4 rounded md:p-0 text-gray-400 md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700">Deals</a>
+          <a href="contact.php" class="<?php echo ('block mb-1 md:mb-0 py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 ') . (str_contains($_SERVER['PHP_SELF'], 'contact.php') ? ('text-white bg-blue-700 md:text-blue-700') : ('text-gray-400 md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent ')) ?>">Contact</a>
         </li>
       </ul>
     </div>

@@ -82,39 +82,45 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($foods as $key => $food) : ?>
-                            <tr class=" border-b bg-gray-900 border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
-                                    <?php echo $key + 1 ?>
-                                </th>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <?php echo $food['title'] ?>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <?php if ($food['image_name'] != "") : ?>
-                                        <img class="h-16 w-16" src="<?php echo '../images/food/' . $food['image_name'] ?>" />
-                                    <?php endif ?>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <?php echo "₦" . $food['price'] ?>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <?php echo $food['rating'] . " stars" ?>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <?php echo $food['featured'] == 1 ? 'True' : 'False' ?>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <?php echo $food['active'] == 1 ? 'True' : 'False' ?>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class=" flex flex-col md:flex-row gap-4 items-center justify-start">
-                                        <a href="<?php echo SITEURL . 'admin/edit-food.php?id=' . $food['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="<?php echo SITEURL . 'admin/delete-food.php?id=' . $food['id'] . '&image_name=' . $food['image_name'] ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
-                                    </div>
-                                </td>
+                        <?php if ($foods->fetch_array()) : ?>
+                            <?php foreach ($foods as $key => $food) : ?>
+                                <tr class=" border-b bg-gray-900 border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
+                                        <?php echo $key + 1 ?>
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo $food['title'] ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php if ($food['image_name'] != "") : ?>
+                                            <img class="h-16 w-16" src="<?php echo '../images/food/' . $food['image_name'] ?>" />
+                                        <?php endif ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo "₦" . $food['price'] ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo $food['rating'] . " stars" ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo $food['featured'] == 1 ? 'True' : 'False' ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo $food['active'] == 1 ? 'True' : 'False' ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class=" flex flex-col md:flex-row gap-4 items-center justify-start">
+                                            <a href="<?php echo SITEURL . 'admin/edit-food.php?id=' . $food['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                            <a href="<?php echo SITEURL . 'admin/delete-food.php?id=' . $food['id'] . '&image_name=' . $food['image_name'] ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <tr>
+                                <td class=" text-xl text-center p-4" colspan="8">Nothing to show</td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endif ?>
                     </tbody>
                 </table>
             </div>

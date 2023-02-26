@@ -39,6 +39,9 @@ if (isset($_GET['addtocart'])) {
 <body class="bg-slate-800 font-montserrat">
   <div class="min-h-screen font-montserrat flex flex-col">
     <?php include('partials/header.php') ?>
+    <?php
+    $categories = $conn->query("SELECT * FROM category");
+    ?>
     <!-- Main Content -->
     <div class="flex-1 lg:py-5 text-gray-400">
       <!-- Carousel -->

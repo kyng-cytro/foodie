@@ -86,25 +86,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($admins as $key => $admin) : ?>
-                            <tr class=" border-b bg-gray-900 border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
-                                    <?php echo $key + 1 ?>
-                                </th>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <?php echo $admin['full_name'] ?>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <?php echo $admin['username'] ?>
-                                </td>
+                        <?php if ($admins->fetch_array()) : ?>
+                            <?php foreach ($admins as $key => $admin) : ?>
+                                <tr class=" border-b bg-gray-900 border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
+                                        <?php echo $key + 1 ?>
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo $admin['full_name'] ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo $admin['username'] ?>
+                                    </td>
 
-                                <td class="flex flex-col md:flex-row px-6 py-4 gap-4 items-center justify-start">
-                                    <a href="<?php echo SITEURL . 'admin/edit-admin.php?id=' . $admin['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    <a href="<?php echo SITEURL . 'admin/reset-password.php?id=' . $admin['id'] ?>" class="font-medium text-orange-600 dark:text-orange-500 hover:underline">Reset</a>
-                                    <a href="<?php echo SITEURL . 'admin/delete-admin.php?id=' . $admin['id'] ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
-                                </td>
+                                    <td class="flex flex-col md:flex-row px-6 py-4 gap-4 items-center justify-start">
+                                        <a href="<?php echo SITEURL . 'admin/edit-admin.php?id=' . $admin['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <a href="<?php echo SITEURL . 'admin/reset-password.php?id=' . $admin['id'] ?>" class="font-medium text-orange-600 dark:text-orange-500 hover:underline">Reset</a>
+                                        <a href="<?php echo SITEURL . 'admin/delete-admin.php?id=' . $admin['id'] ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <tr>
+                                <td class=" text-xl text-center p-4" colspan="8">Nothing to show</td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endif ?>
                     </tbody>
                 </table>
             </div>
