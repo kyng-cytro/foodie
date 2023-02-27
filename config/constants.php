@@ -2,6 +2,7 @@
 ob_start();
 session_start();
 
+
 define("SITEURL", "http://localhost/foodie/");
 define("DB_HOST", "localhost");
 define("DB_USER", "web_user");
