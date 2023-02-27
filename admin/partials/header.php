@@ -14,7 +14,7 @@
             </svg>
         </button>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul class="flex flex-col p-4 mt-4 border  rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0  bg-gray-800 md:bg-gray-900 border-gray-700">
+            <ul class="flex flex-col p-4 mt-4 border space-y-2 md:space-y-0  rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0  bg-gray-800 md:bg-gray-900 border-gray-700">
                 <li>
                     <a href="index.php" class="<?php echo ('block mb-1 md:mb-0 py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 ') . (str_contains($_SERVER['PHP_SELF'], 'index.php') ? ('text-white bg-blue-700 md:text-blue-700') : ('text-gray-400 md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent ')) ?>">Home</a>
                 </li>

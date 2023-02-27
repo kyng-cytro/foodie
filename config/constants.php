@@ -17,6 +17,4 @@ if ($conn->connect_error) {
     echo "Here";
     die("Connection failed: " . $conn->connect_error);
 }
-
-echo "Connected"
 ?>
