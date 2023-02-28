@@ -29,6 +29,14 @@
         ?>
         <!-- Main Content -->
         <div class="flex-1 lg:py-5 text-gray-400">
+            <div class="w-full md:max-w-[80%] mx-auto text-center">
+                <?php
+                if (isset($_SESSION['added'])) {
+                    echo $_SESSION['added'];
+                    unset($_SESSION['added']);
+                }
+                ?>
+            </div>
             <!-- Menu -->
             <?php foreach ($categories as $category) : ?>
                 <div class="md:max-w-[80%] mx-auto my-10 px-2">

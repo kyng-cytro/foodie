@@ -28,6 +28,14 @@
     ?>
     <!-- Main Content -->
     <div class="flex-1 lg:py-5 text-gray-400">
+      <div class="w-full md:max-w-[80%] mx-auto text-center my-4">
+        <?php
+        if (isset($_SESSION['added'])) {
+          echo $_SESSION['added'];
+          unset($_SESSION['added']);
+        }
+        ?>
+      </div>
       <!-- TODO: make this use featured categories image -->
       <!-- Carousel -->
       <div id="indicators-carousel" class="relative md:max-w-[80%] mx-auto" data-carousel="slide">

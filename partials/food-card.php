@@ -1,7 +1,7 @@
 <div class="md:max-w-lg bg-slate-900 px-6 pt-6 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
     <!-- Image & Discount -->
     <div class="relative">
-        <img class="w-full rounded-xl aspect-video" src="<?php echo 'images/food/' . $item['image_name'] ?>" alt="<?php echo $item['name'] ?>" />
+        <img class="w-full rounded-xl aspect-video" src="<?php echo 'images/food/' . $item['image_name'] ?>" alt="<?php echo $item['title'] ?>" />
         <p class="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg"><?php echo $item['discount'] ?? rand(5, 25) . '%' ?></p>
     </div>
     <!-- Name -->
@@ -23,23 +23,6 @@
 
     <!-- Button -->
     <div class="my-4">
-        <?php
-        if (isset($_POST['add_to_cart'])) {
-            $id = $_POST['id'];
-            if ($id == $item['id']) {
-                if (isset($_SESSION['cart'])) {
-                    $count = count($_SESSION['cart']);
-                    $_SESSION['cart'][$count] = $id;
-                } else {
-                    $_SESSION['cart'][0] = $id;
-                }
-                header('Location:' . $_SERVER['PHP_SELF']);
-            }
-        }
-        ?>
-        <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-            <input type="hidden" name="id" value="<?php echo $item['id'] ?>" />
-            <button type="submit" name="add_to_cart" class="block text-center mt-4 text-sm md:text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg hover:bg-indigo-800 focus:bg-indigo-800 duration-500">Add to cart</button>
-        </form>
+        <a href="<?php echo SITEURL . 'cart-add-item.php?id=' . $item['id'] ?>" class="block text-center mt-4 text-sm md:text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg hover:bg-indigo-800 focus:bg-indigo-800 duration-500">Add to cart</a>
     </div>
 </div>

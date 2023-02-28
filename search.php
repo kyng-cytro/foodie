@@ -24,9 +24,21 @@
             $sql = "SELECT * FROM food WHERE title LIKE '%$query%'";
 
             $foods = $conn->query($sql);
+        } else {
+            $sql = "SELECT * FROM food";
+
+            $foods = $conn->query($sql);
         }
         ?>
         <div class="flex-1 p-2 md:p-0 lg:py-5 text-gray-400">
+            <div class="w-full md:max-w-[80%] mx-auto text-center my-4">
+                <?php
+                if (isset($_SESSION['added'])) {
+                    echo $_SESSION['added'];
+                    unset($_SESSION['added']);
+                }
+                ?>
+            </div>
             <div class="flex flex-col items-center justify-center md:max-w-[80%] px-2 md:px-0 md:mx-auto w-full mb-6">
                 <form method="GET" action="<?php echo $_SERVER['PHP_SELF'] ?>" class="w-full flex items-center max-w-lg">
                     <label for="simple-search" class="sr-only">Search</label>
