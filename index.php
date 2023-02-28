@@ -35,6 +35,12 @@
           unset($_SESSION['added']);
         }
         ?>
+        <?php
+        if (isset($_SESSION['order_error'])) {
+          echo $_SESSION['order_error'];
+          unset($_SESSION['order_error']);
+        }
+        ?>
       </div>
       <!-- TODO: make this use featured categories image -->
       <!-- Carousel -->

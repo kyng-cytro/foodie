@@ -19,6 +19,7 @@
         <?php include('partials/header.php') ?>
         <?php
         $total = 0;
+        $items = array();
         if (isset($_SESSION['cart'])) {
             $cart = $_SESSION['cart'];
         }
@@ -39,6 +40,22 @@
                             <div class="space-y-6">
                                 <?php foreach ($cart as $item) : ?>
                                     <?php foreach (get_food_info($conn, $item['id']) as $food) : ?>
+                                        <?php
+                                        if (isset($items)) {
+                                            $items[count($items)] = [
+                                                "title" => $food['title'],
+                                                "image_name" => $food['image_name'],
+                                                "price" => $food['price'],
+                                                "quantity" => $item['quantity']
+                                            ];
+                                        } else {
+                                            $items[0] = [
+                                                "title" => $food['title'],
+                                                "image_name" => $food['image_name'],
+                                                "quantity" => $item['quantity']
+                                            ];
+                                        }
+                                        ?>
                                         <?php
                                         $total = $total + ($food['price'] * $item['quantity']);
                                         ?>
@@ -81,6 +98,39 @@
                     </div>
                     <!-- Checkout -->
                     <div class=" bg-slate-900 p-4 rounded-lg">
+                        <?php
+                        if (isset($_POST['checkout'])) {
+                            $customer_name = $_POST['customer_name'];
+                            $customer_email = $_POST['customer_email'];
+                            $customer_phone = $_POST['customer_phone'];
+                            $customer_address = $_POST['customer_address'];
+                            $items = $_POST['items'];
+                            $total = $_POST['total'];
+                            $order_date = date('Y-m-d H:i:s');
+                            $status = "Pending";
+
+                            $sql = "INSERT INTO `order` SET 
+                            customer_name='$customer_name',
+                            customer_email='$customer_email',
+                            customer_phone='$customer_phone',
+                            customer_address='$customer_address',
+                            items='$items',
+                            total='$total',
+                            order_date='$order_date',
+                            status='$status'
+                            ";
+
+                            $res = $conn->real_query($sql);
+
+                            if ($res) {
+                                unset($_SESSION['cart']);
+                                header("location:" . SITEURL . 'order-placed.php');
+                            } else {
+                                $_SESSION['order_error'] =  "<span class='text-sm font-semibold text-red-500'>Error Occurred While Trying to Place Your Order</span>";
+                                header("location:" . SITEURL);
+                            }
+                        }
+                        ?>
                         <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
                             <h2 class=" text-lg font-semibold">Checkout</h2>
                             <hr class="h-px my-2 border-0 bg-gray-700">
@@ -107,14 +157,16 @@
                                             <input type="email" name="customer_email" id="customer_email" class="text-gray-900 text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400" placeholder="customer@email.com" required>
                                         </div>
                                         <div>
-                                            <label for="customer_number" class="block mb-2 text-sm font-medium">Phone Number</label>
-                                            <input type="number" id="customer_number" name="customer_number" class="text-gray-900 text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400  focus:ring-blue-500 focus:border-blue-500" placeholder="08012345678" required>
+                                            <label for="customer_phone" class="block mb-2 text-sm font-medium">Phone Number</label>
+                                            <input type="number" id="customer_phone" name="customer_phone" class="text-gray-900 text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400  focus:ring-blue-500 focus:border-blue-500" placeholder="08012345678" required>
                                         </div>
                                         <div>
-                                            <label for="address" class="block mb-2 text-sm font-medium">Delivery Address</label>
-                                            <textarea id="address" class="text-gray-900 text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400  focus:ring-blue-500 focus:border-blue-500" placeholder="123 test avenue maryland lagos" required></textarea>
+                                            <label for="customer_address" class="block mb-2 text-sm font-medium">Delivery Address</label>
+                                            <textarea id="customer_address" name="customer_address" class="text-gray-900 text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400  focus:ring-blue-500 focus:border-blue-500" placeholder="123 test avenue maryland lagos" required></textarea>
                                         </div>
-                                        <button type="submit" name="add_to_cart" class="block text-center mt-4 text-sm md:text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg hover:bg-indigo-800 focus:bg-indigo-800 duration-500">Add to cart</button>
+                                        <input type="hidden" name="items" value='<?php echo json_encode($items) ?>' />
+                                        <input type="hidden" name="total" value="<?php echo $total ?>" />
+                                        <button type="submit" name="checkout" class="block text-center mt-4 text-sm md:text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg hover:bg-indigo-800 focus:bg-indigo-800 duration-500">Add to cart</button>
                                     </div>
                                 </div>
                             <?php else : ?>
