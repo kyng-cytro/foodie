@@ -21,6 +21,8 @@ if (isset($_GET['id']) and isset($_GET['image_name'])) {
 
     $res = $conn->real_query($sql);
 
+    push_log($conn, "Deleted Food Item $id");
+
     if ($res) {
         $_SESSION['delete'] = '<span class="text-sm font-semibold text-green-500">Food Deleted Successfully</span>';
     } else {

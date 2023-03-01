@@ -58,6 +58,8 @@
 
                         $res = $conn->query($sql);
 
+                        push_log($conn, "Updated Password Info For $id");
+
                         if ($res) {
                             $_SESSION['change-pwd'] = '<span class="text-sm font-semibold text-green-500">Password Changed Successfully. </span>';
                             header('location:' . SITEURL . 'admin/manage-admins.php');

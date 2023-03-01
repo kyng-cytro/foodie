@@ -35,6 +35,8 @@
 
                 $res = $conn->real_query($sql);
 
+                push_log($conn, "Created A New Admin $username");
+
                 if ($res) {
                     $_SESSION['add'] = '<span class="text-sm font-semibold text-green-500">Admin Created Successfully</span>';
                 } else {

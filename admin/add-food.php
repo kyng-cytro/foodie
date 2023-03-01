@@ -63,6 +63,8 @@
 
                 $res = $conn->real_query($sql);
 
+                push_log($conn, "Created A New Food Item $title");
+
                 if ($res) {
                     $_SESSION['add'] = '<span class="text-sm font-semibold text-green-500">Food Added Successfully.</span>';
                 } else {

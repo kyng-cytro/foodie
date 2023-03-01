@@ -123,6 +123,8 @@
 
                             $res = $conn->real_query($sql);
 
+                            push_log($conn, "Created A New Order");
+
                             if ($res) {
                                 unset($_SESSION['cart']);
                                 header("location:" . SITEURL . 'order-placed.php');
@@ -151,19 +153,19 @@
                                     <div class="space-y-6">
                                         <div>
                                             <label for="customer_name" class="block mb-2 text-sm font-medium">Name</label>
-                                            <input type="text" name="customer_name" id="customer_name" class="text-gray-900 text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400" placeholder="King Cytro" required>
+                                            <input type="text" name="customer_name" id="customer_name" class="text-white text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400" placeholder="King Cytro" required>
                                         </div>
                                         <div>
                                             <label for="customer_email" class="block mb-2 text-sm font-medium">Email</label>
-                                            <input type="email" name="customer_email" id="customer_email" class="text-gray-900 text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400" placeholder="customer@email.com" required>
+                                            <input type="email" name="customer_email" id="customer_email" class="text-white text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400" placeholder="customer@email.com" required>
                                         </div>
                                         <div>
                                             <label for="customer_phone" class="block mb-2 text-sm font-medium">Phone Number</label>
-                                            <input type="number" id="customer_phone" name="customer_phone" class="text-gray-900 text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400  focus:ring-blue-500 focus:border-blue-500" placeholder="08012345678" required>
+                                            <input type="number" id="customer_phone" name="customer_phone" class="text-white text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400  focus:ring-blue-500 focus:border-blue-500" placeholder="08012345678" required>
                                         </div>
                                         <div>
                                             <label for="customer_address" class="block mb-2 text-sm font-medium">Delivery Address</label>
-                                            <textarea id="customer_address" name="customer_address" class="text-gray-900 text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400  focus:ring-blue-500 focus:border-blue-500" placeholder="123 test avenue maryland lagos" required></textarea>
+                                            <textarea id="customer_address" name="customer_address" class="text-white text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400  focus:ring-blue-500 focus:border-blue-500" placeholder="123 test avenue maryland lagos" required></textarea>
                                         </div>
                                         <input type="hidden" name="items" value='<?php echo json_encode($items) ?>' />
                                         <input type="hidden" name="total" value="<?php echo $total ?>" />

@@ -67,6 +67,8 @@
 
                 $res = $conn->real_query($sql);
 
+                push_log($conn, "Updated Order Info For $id");
+
                 if ($res) {
                     $_SESSION['update'] = '<span class="text-sm font-semibold text-green-500">Order Updated Successfully</span>';
                 } else {

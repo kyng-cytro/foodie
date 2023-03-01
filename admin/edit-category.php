@@ -98,6 +98,8 @@
 
                 $res = $conn->real_query($sql);
 
+                push_log($conn, "Updated Category Info For $title");
+
                 if ($res) {
                     $_SESSION['add'] = '<span class="text-sm font-semibold text-green-500">Category Updated Successfully.</span>';
                 } else {

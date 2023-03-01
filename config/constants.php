@@ -19,3 +19,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 ?>
+
+<?php
+function push_log($conn, $message)
+{
+    $user  = $_SESSION['user'] ?? "System";
+    $conn->real_query("INSERT INTO `history` SET `message` = '$message', `user` = '$user'");
+}
+?>

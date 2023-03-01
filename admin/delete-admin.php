@@ -10,6 +10,8 @@ if (isset($_GET['id'])) {
 
     $res = $conn->real_query($sql);
 
+    push_log($conn, "Deleted Admin $id");
+
     if ($res) {
         $_SESSION['delete'] = '<span class="text-sm font-semibold text-green-500">Admin Deleted Successfully</span>';
     } else {

@@ -54,6 +54,8 @@
 
                 $res = $conn->real_query($sql);
 
+                push_log($conn, "Updated Admin Info For $username");
+
                 if ($res) {
                     $_SESSION['update'] = '<span class="text-sm font-semibold text-green-500">Admin Updated Successfully</span>';
                 } else {

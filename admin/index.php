@@ -16,7 +16,12 @@
 <body class="min-h-screen flex flex-col font-montserrat">
     <!--- Nav Bar -->
     <?php include('partials/header.php') ?>
-
+    <?php
+    $category_count = $conn->query("SELECT COUNT(`id`) AS `count` FROM `category`")->fetch_assoc()['count'];
+    $food_count = $conn->query("SELECT COUNT(`id`) AS `count` FROM `food`")->fetch_assoc()['count'];
+    $order_count = $conn->query("SELECT COUNT(`id`) AS `count` FROM `order`")->fetch_assoc()['count'];
+    $revenue_count = $conn->query("SELECT SUM(`total`) AS `revenue` FROM `order` WHERE `status` = 'delivered'")->fetch_assoc()['revenue'];
+    ?>
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
         <div class="space-y-4">
@@ -24,20 +29,20 @@
 
             <div class="grid gap-3 grid-cols-2 md:grid-cols-4">
                 <div class=" bg-slate-300 py-8 px-8 text-center rounded-md">
-                    <h3 class=" font-semibold text-xl">5</h3>
+                    <h3 class=" font-semibold text-xl"><?php echo $category_count ?? 0 ?></h3>
                     <p class=" text-sm text-slate-700">Categories</p>
                 </div>
                 <div class=" bg-slate-300 py-8 px-8 text-center rounded-md">
-                    <h3 class=" font-semibold text-xl">5</h3>
-                    <p class=" text-sm text-slate-700">Categories</p>
+                    <h3 class=" font-semibold text-xl"><?php echo $food_count ?? 0 ?></h3>
+                    <p class=" text-sm text-slate-700">Foods</p>
                 </div>
                 <div class=" bg-slate-300 py-8 px-8 text-center rounded-md">
-                    <h3 class=" font-semibold text-xl">5</h3>
-                    <p class=" text-sm text-slate-700">Categories</p>
+                    <h3 class=" font-semibold text-xl"><?php echo $order_count ?? 0 ?></h3>
+                    <p class=" text-sm text-slate-700">Orders</p>
                 </div>
                 <div class=" bg-slate-300 py-8 px-8 text-center rounded-md">
-                    <h3 class=" font-semibold text-xl">5</h3>
-                    <p class=" text-sm text-slate-700">Categories</p>
+                    <h3 class=" font-semibold text-xl space-x-1"><span>₦</span><span><?php echo number_format($revenue_count) ?? 0 ?></span></h3>
+                    <p class=" text-sm text-slate-700">Revenue</p>
                 </div>
             </div>
         </div>
