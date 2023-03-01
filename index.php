@@ -20,6 +20,8 @@
     <?php
     $featured_category = $conn->query("SELECT * FROM `category` WHERE `active` = 1 AND `featured` = 1 LIMIT 3");
 
+    $banner_category = $conn->query("SELECT * FROM `category` WHERE `id` = 19 OR `id`  = 30 OR `id` = 32");
+
     function getFoods($conn, $category_id)
     {
       $foods = $conn->query("SELECT * FROM `food` WHERE `category_id` = $category_id AND `active` = 1 AND `featured` = 1 LIMIT 5");
@@ -48,25 +50,11 @@
         <!-- Carousel wrapper -->
         <div class="relative h-64 overflow-hidden rounded-lg md:h-[31rem]">
           <!-- Item 1 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-            <img src="images/covers/cover_image_1.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-          </div>
-          <!-- Item 2 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="images/covers/cover_image_2.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-          </div>
-          <!-- Item 3 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="images/covers/cover_image_3.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-          </div>
-          <!-- Item 4 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="images/covers/cover_image_4.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-          </div>
-          <!-- Item 5 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="images/covers/cover_image_5.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-          </div>
+          <?php foreach ($banner_category as $category) : ?>
+            <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
+              <img src="<?php echo 'images/category/' . $category['image_name'] ?>" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+            </div>
+          <?php endforeach; ?>
         </div>
         <!-- Slider indicators -->
         <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
