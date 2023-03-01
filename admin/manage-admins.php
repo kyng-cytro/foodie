@@ -18,7 +18,7 @@
     <?php include('partials/header.php') ?>
 
     <?php
-    $admins = $conn->query('SELECT * FROM `admin`');
+    $admins = $conn->query("SELECT * FROM `admin`");
     ?>
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">

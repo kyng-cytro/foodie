@@ -47,11 +47,11 @@
                     $image_name = "";
                 }
 
-                $sql = "INSERT INTO category SET 
-                    title='$title',
-                    image_name='$image_name',
-                    featured='$featured',
-                    active='$active'
+                $sql = "INSERT INTO `category` SET 
+                    `title`='$title',
+                    `image_name`='$image_name',
+                    `featured`='$featured',
+                    `active`='$active'
                 ";
 
                 $res = $conn->real_query($sql);

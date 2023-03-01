@@ -17,13 +17,13 @@
     <!--- Nav Bar -->
     <?php include('partials/header.php') ?>
     <?php
-    $categories = $conn->query("SELECT * FROM category");
+    $categories = $conn->query("SELECT * FROM `category`");
     ?>
     <?php
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
 
-        $sql = "SELECT * FROM food WHERE id= $id";
+        $sql = "SELECT * FROM `food` WHERE `id` = $id";
 
         $res = $conn->query($sql);
 
@@ -92,17 +92,18 @@
                 } else {
                     $image_name = $current_image;
                 }
-                //TODO: fix updated at timestamp
-                $sql = "UPDATE food SET 
-                        title = '$title',
-                        image_name = '$image_name',
-                        price = '$price',
-                        rating = '$rating',
-                        category_id = '$category_id',
-                        featured = '$featured',
-                        active = '$active' 
-                        WHERE id=$id
-                    ";
+
+                $sql = "UPDATE `food` SET 
+                    `title` = '$title',
+                    `image_name` = '$image_name',
+                    `price` = '$price',
+                    `rating` = '$rating',
+                    `category_id` = '$category_id',
+                    `featured` = '$featured',
+                    `active` = '$active',
+                    `updated_at` = now()
+                    WHERE `id` = $id
+                ";
 
                 $res = $conn->real_query($sql);
 
@@ -118,15 +119,15 @@
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" class="max-w-3xl">
                 <div class="mb-6">
                     <label for="title" class="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
-                    <input name="title" type="text" value="<?php echo $title; ?>" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Bread Sticks" required>
+                    <input name="title" type="text" value="<?php echo $title; ?>" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                 </div>
                 <div class="mb-6">
                     <label for="price" class="block mb-2 text-sm font-medium text-gray-900 ">Price</label>
-                    <input name="price" type="number" value="<?php echo $price; ?>" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="19000" required>
+                    <input name="price" type="number" value="<?php echo $price; ?>" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                 </div>
                 <div class="mb-6">
                     <label for="rating" class="block mb-2 text-sm font-medium text-gray-900 ">Rating</label>
-                    <input name="rating" type="number" value="<?php echo $rating; ?>" min="1" max="5" id="rating" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="4" required>
+                    <input name="rating" type="number" value="<?php echo $rating; ?>" min="1" max="5" id="rating" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                 </div>
                 <div class="mb-6">
                     <label for="image" class="block mb-2 text-sm font-medium text-gray-900 ">Current Image</label>

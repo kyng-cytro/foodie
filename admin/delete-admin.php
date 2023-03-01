@@ -6,7 +6,7 @@ if (isset($_GET['id'])) {
 
     $id = $_GET['id'];
 
-    $sql = "DELETE FROM `admin` WHERE id=$id";
+    $sql = "DELETE FROM `admin` WHERE `id` = $id";
 
     $res = $conn->real_query($sql);
 

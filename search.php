@@ -21,7 +21,7 @@
         if (isset($_GET['query'])) {
             $query = $_GET['query'];
 
-            $sql = "SELECT * FROM food WHERE title LIKE '%$query%'";
+            $sql = "SELECT * FROM `food` WHERE `title` LIKE '%$query%'";
 
             $foods = $conn->query($sql);
         } else {

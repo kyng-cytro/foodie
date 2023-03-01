@@ -16,12 +16,27 @@
 <body class="min-h-screen flex flex-col font-montserrat">
     <!--- Nav Bar -->
     <?php include('partials/header.php') ?>
-
+    <?php
+    $orders = $conn->query("SELECT * FROM `order`")
+    ?>
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
         <div class="space-y-4">
             <h2 class="font-bold text-2xl uppercase">Manage Orders</h2>
-
+            <div>
+                <?php
+                if (isset($_SESSION['update'])) {
+                    echo $_SESSION['update'];
+                    unset($_SESSION['update']);
+                }
+                ?>
+                <?php
+                if (isset($_SESSION['no-order-found'])) {
+                    echo $_SESSION['no-order-found'];
+                    unset($_SESSION['no-order-found']);
+                }
+                ?>
+            </div>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left text-gray-400">
                     <thead class="text-xs  uppercase bg-gray-700 text-gray-400">
@@ -30,10 +45,28 @@
                                 S/N
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Full Name
+                                Customer Name
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Username
+                                Customer Email
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Customer Phone
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Customer Address
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                No Items
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Order Date
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Status
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Total
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Action
@@ -41,22 +74,48 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class=" border-b bg-gray-900 border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
-                                1
-                            </th>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                John Dibashi
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                Cytro
-                            </td>
-
-                            <td class="flex flex-col md:flex-row px-6 py-4 gap-4 items-center justify-start">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
-                            </td>
-                        </tr>
+                        <?php if ($orders->fetch_array()) : ?>
+                            <?php foreach ($orders as $key => $order) : ?>
+                                <tr class=" border-b bg-gray-900 border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
+                                        <?php echo $key + 1 ?>
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo $order['customer_name'] ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo $order['customer_email'] ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo $order['customer_phone'] ?>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <?php echo $order['customer_address'] ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo count(json_decode($order['items'])) . ' Item(s)' ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo date_format(date_create($order['order_date']), "d M, Y") ?>
+                                    </td>
+                                    <td class="px-6 py-4 font-semibold">
+                                        <span class="capitalize whitespace-nowrap"><?php echo $order['status'] ?></span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <?php echo "₦" . $order['total'] ?>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class=" flex flex-col md:flex-row gap-4 items-center justify-start">
+                                            <a href="<?php echo SITEURL . 'admin/edit-order.php?id=' . $order['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Update</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <tr>
+                                <td class=" text-xl text-center p-4" colspan="8">Nothing to show</td>
+                            </tr>
+                        <?php endif ?>
                     </tbody>
                 </table>
             </div>

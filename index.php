@@ -18,11 +18,11 @@
   <div class="min-h-screen font-montserrat flex flex-col">
     <?php include('partials/header.php') ?>
     <?php
-    $featured_category = $conn->query("SELECT * FROM category WHERE active = 1 AND featured = 1 LIMIT 3");
+    $featured_category = $conn->query("SELECT * FROM `category` WHERE `active` = 1 AND `featured` = 1 LIMIT 3");
 
     function getFoods($conn, $category_id)
     {
-      $foods = $conn->query("SELECT * FROM food WHERE category_id = $category_id AND active = 1 AND featured = 1 LIMIT 5");
+      $foods = $conn->query("SELECT * FROM `food` WHERE `category_id` = $category_id AND `active` = 1 AND `featured` = 1 LIMIT 5");
       return $foods;
     }
     ?>

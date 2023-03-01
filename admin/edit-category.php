@@ -21,7 +21,7 @@
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
 
-        $sql = "SELECT * FROM category WHERE id= $id";
+        $sql = "SELECT * FROM `category` WHERE `id` = $id";
 
         $res = $conn->query($sql);
 
@@ -87,14 +87,14 @@
                     $image_name = $current_image;
                 }
 
-                //TODO: fix updated at timestamp
-                $sql = "UPDATE category SET 
-                                    title = '$title',
-                                    image_name = '$image_name',
-                                    featured = '$featured',
-                                    active = '$active' 
-                                    WHERE id=$id
-                                ";
+                $sql = "UPDATE `category` SET 
+                    `title` = '$title',
+                    `image_name` = '$image_name',
+                    `featured` = '$featured',
+                    `active` = '$active',
+                    `updated_at` = now()
+                    WHERE `id` = $id
+                ";
 
                 $res = $conn->real_query($sql);
 
@@ -110,7 +110,7 @@
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" class="max-w-3xl">
                 <div class="mb-6">
                     <label for="title" class="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
-                    <input name="title" type="text" id="title" value="<?php echo $title; ?>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Healthy" required>
+                    <input name="title" type="text" id="title" value="<?php echo $title; ?>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                 </div>
                 <div class="mb-6">
                     <label for="image" class="block mb-2 text-sm font-medium text-gray-900 ">Current Image</label>

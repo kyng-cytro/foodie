@@ -17,7 +17,7 @@ if (isset($_GET['id']) and isset($_GET['image_name'])) {
         }
     }
 
-    $sql = "DELETE FROM `category` WHERE id=$id";
+    $sql = "DELETE FROM `category` WHERE `id` =$id";
 
     $res = $conn->real_query($sql);
 

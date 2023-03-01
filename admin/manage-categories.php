@@ -18,7 +18,7 @@
     <?php include('partials/header.php') ?>
 
     <?php
-    $categories = $conn->query('SELECT * FROM `category`');
+    $categories = $conn->query("SELECT * FROM `category`");
     ?>
 
     <!-- Main Content -->

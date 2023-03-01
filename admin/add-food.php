@@ -17,7 +17,7 @@
     <!--- Nav Bar -->
     <?php include('partials/header.php') ?>
     <?php
-    $categories = $conn->query('SELECT * FROM category WHERE active = 1');
+    $categories = $conn->query('SELECT * FROM `category` WHERE `active` = 1');
     ?>
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
@@ -51,14 +51,14 @@
                     $image_name = "";
                 }
 
-                $sql = "INSERT INTO food SET 
-                    title = '$title',
-                    price = $price,
-                    rating = '$rating',
-                    image_name = '$image_name',
-                    category_id = $category_id,
-                    featured = '$featured',
-                    active = '$active'
+                $sql = "INSERT INTO `food` SET 
+                    `title` = '$title',
+                    `price` = $price,
+                    `rating` = '$rating',
+                    `image_name` = '$image_name',
+                    `category_id` = $category_id,
+                    `featured` = '$featured',
+                    `active` = '$active'
                 ";
 
                 $res = $conn->real_query($sql);

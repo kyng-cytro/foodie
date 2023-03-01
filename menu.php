@@ -19,11 +19,11 @@
         <?php include('partials/header.php') ?>
         <?php
 
-        $categories = $conn->query("SELECT * FROM category WHERE active = 1");
+        $categories = $conn->query("SELECT * FROM `category` WHERE `active` = 1");
 
         function getFoods($conn, $category_id)
         {
-            $foods = $conn->query("SELECT * FROM food WHERE category_id = $category_id AND active = 1");
+            $foods = $conn->query("SELECT * FROM `food` WHERE `category_id` = $category_id AND `active` = 1");
             return $foods;
         }
         ?>

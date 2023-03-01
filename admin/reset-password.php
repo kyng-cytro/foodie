@@ -17,7 +17,7 @@
     <?php
     $id = $_GET['id'];
 
-    $sql = "SELECT * FROM admin WHERE id= $id";
+    $sql = "SELECT * FROM admin WHERE `id` = $id";
 
     $res = $conn->query($sql);
 
@@ -42,7 +42,7 @@
                 $new_password = md5($_POST['new_password']);
                 $confirm_password = md5($_POST['confirm_password']);
 
-                $sql = "SELECT * FROM `admin` WHERE id=$id AND password='$current_password'";
+                $sql = "SELECT * FROM `admin` WHERE `id` = $id AND `password` = '$current_password'";
 
                 $res = $conn->query($sql);
 
@@ -50,10 +50,10 @@
 
                     if ($new_password == $confirm_password) {
 
-                        //TODO: Fix updated at timestamp
                         $sql = "UPDATE `admin` SET 
-                        password='$new_password' 
-                        WHERE id=$id
+                            `password`='$new_password',
+                            `updated_at` = now()
+                            WHERE `id` = $id
                         ";
 
                         $res = $conn->query($sql);

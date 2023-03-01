@@ -36,7 +36,7 @@
                 $username = $_POST['username'];
                 $password = md5($_POST['password']);
 
-                $sql = "SELECT * FROM `admin` WHERE username='$username' AND password='$password'";
+                $sql = "SELECT * FROM `admin` WHERE `username`='$username' AND `password` ='$password'";
 
                 $res = $conn->query($sql);
 

@@ -27,10 +27,10 @@
                 $full_name = $_POST['full_name'];
                 $password = md5($_POST['password']);
 
-                $sql = "INSERT INTO admin SET 
-                    full_name='$full_name',
-                    username='$username',
-                    password='$password'
+                $sql = "INSERT INTO `admin` SET 
+                    `full_name`='$full_name',
+                    `username`='$username',
+                    `password`='$password'
                     ";
 
                 $res = $conn->real_query($sql);

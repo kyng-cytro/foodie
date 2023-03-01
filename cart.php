@@ -11,7 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/output.css" />
     <link rel="stylesheet" href="css/extras.css" />
-    <title>Foodie | Menu</title>
+    <title>Foodie | Cart</title>
 </head>
 
 <body class="bg-slate-800 font-montserrat">
@@ -25,7 +25,7 @@
         }
         function get_food_info($conn, $id)
         {
-            return $conn->query("SELECT * FROM food WHERE id = $id");
+            return $conn->query("SELECT * FROM `food` WHERE `id` = $id");
         }
         ?>
         <div class="flex-1 lg:py-5 text-gray-400">
@@ -107,17 +107,17 @@
                             $items = $_POST['items'];
                             $total = $_POST['total'];
                             $order_date = date('Y-m-d H:i:s');
-                            $status = "Pending";
+                            $status = "pending";
 
                             $sql = "INSERT INTO `order` SET 
-                            customer_name='$customer_name',
-                            customer_email='$customer_email',
-                            customer_phone='$customer_phone',
-                            customer_address='$customer_address',
-                            items='$items',
-                            total='$total',
-                            order_date='$order_date',
-                            status='$status'
+                            `customer_name`='$customer_name',
+                            `customer_email`='$customer_email',
+                            `customer_phone`='$customer_phone',
+                            `customer_address`='$customer_address',
+                            `items`='$items',
+                            `total`='$total',
+                            `order_date`='$order_date',
+                            `status`='$status'
                             ";
 
                             $res = $conn->real_query($sql);

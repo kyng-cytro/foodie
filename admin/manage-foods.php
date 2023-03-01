@@ -17,7 +17,7 @@
     <!--- Nav Bar -->
     <?php include('partials/header.php') ?>
     <?php
-    $foods = $conn->query("SELECT * FROM food")
+    $foods = $conn->query("SELECT * FROM `food`")
     ?>
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
