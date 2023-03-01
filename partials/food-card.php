@@ -23,6 +23,6 @@
 
     <!-- Button -->
     <div class="my-4">
-        <a href="<?php echo SITEURL . 'cart-add-item.php?id=' . $item['id'] ?>" class="block text-center mt-4 text-sm md:text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg hover:bg-indigo-800 focus:bg-indigo-800 duration-500">Add to cart</a>
+        <a href="<?php echo SITEURL . 'cart-add-item.php?id=' . $item['id'] ?>" class="block text-center mt-4 text-sm md:text-xl w-full text-white bg-blue-700 py-2 rounded-xl shadow-lg hover:bg-blue-800 focus:bg-blue-800 duration-500">Add to cart</a>
     </div>
 </div>

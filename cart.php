@@ -134,7 +134,7 @@
                         <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
                             <h2 class=" text-lg font-semibold">Checkout</h2>
                             <hr class="h-px my-2 border-0 bg-gray-700">
-                            <?php if (!$cart or $cart) : ?>
+                            <?php if ($cart) : ?>
                                 <div class="space-y-5">
                                     <div class="flex justify-between items-center py-2">
                                         <div>
@@ -166,7 +166,7 @@
                                         </div>
                                         <input type="hidden" name="items" value='<?php echo json_encode($items) ?>' />
                                         <input type="hidden" name="total" value="<?php echo $total ?>" />
-                                        <button type="submit" name="checkout" class="block text-center mt-4 text-sm md:text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg hover:bg-indigo-800 focus:bg-indigo-800 duration-500">Add to cart</button>
+                                        <button type="submit" name="checkout" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Check Out</button>
                                     </div>
                                 </div>
                             <?php else : ?>
