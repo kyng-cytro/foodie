@@ -106,6 +106,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class=" flex flex-col md:flex-row gap-4 items-center justify-start">
+                                            <a target="_blank" href="<?php echo SITEURL . 'admin/print-order.php?id=' . $order['id'] ?>" class="font-medium text-green-600 dark:text-green-500 hover:underline">Print</a>
                                             <a href="<?php echo SITEURL . 'admin/edit-order.php?id=' . $order['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Update</a>
                                         </div>
                                     </td>

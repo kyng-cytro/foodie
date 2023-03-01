@@ -52,6 +52,7 @@
                                             $items[0] = [
                                                 "title" => $food['title'],
                                                 "image_name" => $food['image_name'],
+                                                "price" => $food['price'],
                                                 "quantity" => $item['quantity']
                                             ];
                                         }
