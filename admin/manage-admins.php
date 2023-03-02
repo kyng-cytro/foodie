@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="../favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="../css/output.css" />
     <title>Foodie | Manage Admin</title>
 </head>
@@ -18,7 +19,7 @@
     <?php include('partials/header.php') ?>
 
     <?php
-    $admins = $conn->query("SELECT * FROM `admin`");
+    $admins = $conn->query("SELECT * FROM `admin` ORDER BY `id` DESC");
     ?>
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1">
