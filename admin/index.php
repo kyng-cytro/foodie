@@ -22,7 +22,7 @@
     $food_count = $conn->query("SELECT COUNT(`id`) AS `count` FROM `food`")->fetch_assoc()['count'];
     $order_count = $conn->query("SELECT COUNT(`id`) AS `count` FROM `order`")->fetch_assoc()['count'];
     $revenue_count = $conn->query("SELECT SUM(`total`) AS `revenue` FROM `order` WHERE `status` = 'delivered'")->fetch_assoc()['revenue'];
-    $histories = $conn->query("SELECT * FROM `history` LIMIT 10");
+    $histories = $conn->query("SELECT * FROM `history` ORDER BY `id` DESC LIMIT 10");
     $histories_array = $histories->fetch_array();
     ?>
     <!-- Main Content -->
