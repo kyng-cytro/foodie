@@ -22,8 +22,8 @@
     $food_count = $conn->query("SELECT COUNT(`id`) AS `count` FROM `food`")->fetch_assoc()['count'];
     $order_count = $conn->query("SELECT COUNT(`id`) AS `count` FROM `order`")->fetch_assoc()['count'];
     $revenue_count = $conn->query("SELECT SUM(`total`) AS `revenue` FROM `order` WHERE `status` = 'delivered'")->fetch_assoc()['revenue'];
-    $histories = $conn->query("SELECT * FROM `history`");
-    $history_count = $conn->query("SELECT COUNT(`id`) AS `count` FROM `history`")->fetch_assoc()['count'];
+    $histories = $conn->query("SELECT * FROM `history` LIMIT 10");
+    $histories_array = $histories->fetch_array();
     ?>
     <!-- Main Content -->
     <div class="md:max-w-[80%] mx-auto py-4 px-2 md:px-0 w-full flex-1 flex">
@@ -57,7 +57,7 @@
                             <span class=" font-semibold"><?php echo $history['user'] ?></span>
                             <span class=" text-sm lowercase"><?php echo $history['message'] ?></span>
                         </div>
-                        <?php if ($key + 1 != $history_count) : ?>
+                        <?php if ($key + 1 != count($histories_array)) : ?>
                             <hr class="h-px my-2 border-0 bg-gray-700">
                         <?php endif ?>
                     <?php endforeach ?>
