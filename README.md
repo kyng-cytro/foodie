@@ -61,3 +61,7 @@ Please feel free to contribute by submitting pull requests or by reporting any i
 ## License
 
 Foodie is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 🙏 Acknowledgments
+
+- [Vijay Thapa](https://www.youtube.com/@VijayThapa) and his [food-order-website-php](https://github.com/vijaythapa333/food-order-website-php)
